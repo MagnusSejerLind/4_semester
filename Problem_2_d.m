@@ -1,0 +1,20 @@
+%% 
+clear, clc, close all
+I_T = [0 5 10 20 30]; %Different types of current values [Ampere]
+P_supp = [0 52.5 90 120 90]; %Power supplied to the circuit [Watt]
+V_T = P_supp./I_T; %Terminal voltage [Volt]
+
+%Plotting the Power supplied as a function of current
+%And the Terminal voltage as a function of current
+figure(1)
+subplot(1,2,1)
+plot(I_T,P_supp,'LineWidth',2)
+xlabel('Current I_T [A]')
+ylabel('Power supplied to circuit [W]')
+grid on
+
+subplot(1,2,2)
+plot(I_T,V_T,'LineWidth',2)
+xlabel('Current I_T [A]')
+ylabel('Terminal voltage [V]')
+grid on
