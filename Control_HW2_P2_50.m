@@ -18,7 +18,7 @@ pzplot(TF)
 grid
 a = findobj(gca,'type','line');
 for i = 1:length(a)
-    set(a(i),'markersize',10) %change marker size
-    set(a(i), 'linewidth',2)  %change linewidth
+    set(a(i),'markersize',10) % change marker size
+    set(a(i), 'linewidth',2)  % change linewidth
 end
 
