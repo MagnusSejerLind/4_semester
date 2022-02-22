@@ -11,6 +11,7 @@ P = pole(TF);
 Z = zero(TF);
 
 figure(1)
+
 % Pole & Zero plot of system
 pzplot(TF)
 
