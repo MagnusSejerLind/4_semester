@@ -1,8 +1,8 @@
-%% HW1 P2a
+%% P2a
 clc,clear,close
 
 % Data
-x = [1993 1995 1997 1999 2011 2003 2005 2007 2009]'; % Year
+x = [1993 1995 1997 1999 2001 2003 2005 2007 2009]'; % Year
 y = [12.0 12.7 13.0 15.2 18.2 19.8 24.1 28.1 NaN]';  % Toxin concentration
 
 % Removing the unknown value
@@ -47,6 +47,38 @@ ylim([10 30])
 print('2_a', '-depsc');  
 
 %% 2b
+clc,clear,close
+
+% Expand the years and apply Lagrange polynomial interpolation
+
+% Data
+x = [1993 1995 1997 1999 2001 2003 2005 2007 2009]'; % Year
+y = [12.0 12.7 13.0 15.2 18.2 19.8 24.1 28.1 NaN]';  % Toxin concentration
+
+% Removing the unknown value
+x = x(1:length(x)-1);
+y = y(1:length(y)-1);
+
+
+xx = linspace(min(x),max(x)+2,100);
+yy_int = zeros(length(xx),1);
+
+for k = 1:length(xx)
+P = 0;  % Starts with a new polynomial
+
+    for j = 1:length(x)
+        L = 1;
+        for i = 1:length(x)
+            if  i ~= j  % Skips i=j
+                  L = L * (xx(k) - x(i)) / (x(j) - x(i));    % Calculate L_j values and multiply the results together
+            end            
+        end
+        P = P + L*y(j);     % Scaling the L value with the known y value at the given point, the sums the product
+    end
+    yy_int(k) = P;     % Interpolated values
+end
+
+
 for i = 1:length(xx)
     if xx(i) == 2009
         fprintf('The toxin concentration in 2009 is approximated using a Lagrange polynomial to be %.1f\n',yy_int(i))
@@ -55,11 +87,27 @@ for i = 1:length(xx)
 end
 
 
+% Plot data points
+figure(1)
+plot(x,y,'Ob',MarkerFaceColor='b',LineWidth=2)
+hold on
+
+% Plot interpolation polynomial
+plot(xx,yy_int,LineWidth=2)
+title('Concentration of Toxin')
+xlabel('Year')
+ylabel('Toxin conc.')
+grid on
+legend('Data points','Lagrange polynomial',Location='northwest')
+ylim([-40 35])
+
+
+
 %% 2c
 clc,clear,close
 
 % Data
-x_mod = [1993 1995 2011 2003 2005 2007]'; % Year
+x_mod = [1993 1995 2001 2003 2005 2007]'; % Year
 y_mod = [12.0 12.7 18.2 19.8 24.1 28.1]';  % Toxin concentration
 
 
@@ -112,6 +160,50 @@ for j = 1:length(xx_mod)
         break
     end
 end
+
+%% 2d
+clc,clear,close
+
+% Data
+x = [1993 1995 1997 1999 2001 2003 2005 2007 2009]'; % Year
+y = [12.0 12.7 13.0 15.2 18.2 19.8 24.1 28.1 NaN]';  % Toxin concentration
+
+% Removing the unknown value
+x = x(1:length(x)-1);
+y = y(1:length(y)-1);
+
+
+xx = linspace(min(x),max(x)+2,100);
+
+yy_int = spline(x,y,xx);
+
+
+plot(xx,yy_int)
+
+for i = 1:length(xx)
+    if xx(i) == 2009
+        fprintf('The toxin concentration in 2009 is approximated using cubic spline interpolation to be %.1f\n',yy_int(i))
+        break
+    end
+end
+
+
+% Plot data points
+figure(1)
+plot(x,y,'Ob',MarkerFaceColor='b',LineWidth=2)
+hold on
+
+% Plot interpolation polynomial
+plot(xx,yy_int,LineWidth=2)
+title('Concentration of Toxin')
+xlabel('Year')
+ylabel('Toxin conc.')
+grid on
+legend('Data points','Cubic spline',Location='northwest')
+ylim([10 30])
+
+
+print('2_d', '-depsc');  
 
 
 

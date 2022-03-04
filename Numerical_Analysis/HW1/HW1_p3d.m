@@ -1,4 +1,4 @@
-%% Problem 3
+%% 3d
 clc,clear
 
 % Function
@@ -8,44 +8,7 @@ f = @(x) -0.0547*x.^4 + 0.8646*x.^3 -4.1562*x.^2 + 6.2917*x + 2;
 a = 0;     % Lower
 b = 8;     % upper
 
-
-
-%% 3.b
-
-n = 200;        % Number of paneles 
-
-h = (b-a)/n;    % uniform spacing
-x = linspace(a,b,n+1);
-
-I = 0;
-for i = 1:n
-    I = I + h/2* (f(x(i)) + f(x(i+1)));
-end
-
-I_trapezoidal = I;
-
-fprintf('The integral using the trapezoidal method with %g panels is %.3f\n',n,I_trapezoidal)
-
-
-%% 3.c
-n = 50;    % Number of paneles 
-
-
-h = (b-a)/n;    % uniform spacing
-x = linspace(a,b,n+1);  
-
-I = 0;
-for i = 1:2:n-1     % skips all even values
-    I = I + h/3 * ( f(x(i)) + 4*f(x(i+1)) + f(x(i+2)) );
-end
-
-I_Simpson = I;
-
-fprintf('The integral using Simpsons method with %g panels is %.3f\n',n,I_Simpson)
-
-
-%% 3d
-% Order
+% Gauss order
 n_gp = 5;
 
 % Determine weight and Gauss points from table
@@ -54,8 +17,7 @@ n_gp = 5;
 % Apply coordinate transform using x = ((b+a)/2 + (b-a)/2*xi)
 phi = @(xi) -0.0547.*((b+a)/2 + (b-a)/2*xi).^4 + 0.8646.*((b+a)/2 + (b-a)/2*xi).^3 -4.1562.*((b+a)/2 + (b-a)/2*xi).^2 + 6.2917.*((b+a)/2 + (b-a)/2*xi) + 2;
 
-
-% Scaling the limits using the Jacobian
+% scale the limits using the Jacobian
 J = (b -a) /2;
 
 
@@ -112,8 +74,3 @@ function [xi,w] = GaussTable(nGP)
     end
 
 end
-
-
-
-
-

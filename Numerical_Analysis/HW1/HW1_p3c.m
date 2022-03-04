@@ -2,7 +2,7 @@
 clc,clear
 
 % Function
-f = @(x) -0.0547.*x.^4 + 0.8646.*x.^3 -4.1562.*x.^2;
+f = @(x) -0.0547*x.^4 + 0.8646*x.^3 -4.1562*x.^2 + 6.2917*x + 2;
 
 % Limits of integration
 a = 0;     % Lower
@@ -21,5 +21,5 @@ end
 
 I_Simpson = I;
 
-fprintf('The integral using Simpsons method is %.2f\n',I_Simpson)
+fprintf('The integral using Simpsons method with %g panels is %.3f\n',n,I_Simpson)
 
