@@ -8,7 +8,7 @@ f = @(x) -0.0547*x.^4 + 0.8646*x.^3 -4.1562*x.^2 + 6.2917*x + 2;
 a = 0;     % Lower
 b = 8;     % upper
 
-n = 30;    % Number of paneles 
+n = 50;    % Number of paneles 
 
 
 h = (b-a)/n;    % uniform spacing

@@ -12,7 +12,7 @@ b = 8;     % upper
 
 %% 3.b
 
-n = 200;        % Number of paneles 
+n = 400;        % Number of paneles 
 
 h = (b-a)/n;    % uniform spacing
 x = linspace(a,b,n+1);
@@ -46,7 +46,7 @@ fprintf('The integral using Simpsons method with %g panels is %.3f\n',n,I_Simpso
 
 %% 3d
 % Order
-n_gp = 5;
+n_gp = 3;
 
 % Determine weight and Gauss points from table
 [xi,w] = GaussTable(n_gp);

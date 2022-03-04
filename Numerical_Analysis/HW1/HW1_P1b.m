@@ -10,7 +10,7 @@ n = 0;
 E = 1; % Error
 
 
-while E>1e-6 && n<20
+while E>1e-5 && n<20
 
 % System of functions
 f = fun(x);
@@ -35,8 +35,6 @@ function f = fun(x)
 % x = x(1), y = x(2)
     f(1) = (x(1)^2 + x(2)^2) -5;
     f(2) = (x(1)^2 - 1) - x(2);
-
-%     F = (x(1)^2 + x(2)^2) -5 + (x(1) - 1) - x(2);
 end
 
 
@@ -53,7 +51,7 @@ for j = 1:2
 
 
         fc = fun(x+h) - fun(x);    % Function change
-        J(i,j) = fc(i)/P;         % Jacobian calculated
+        J(i,j) = fc(i)/P;          % Jacobian calculated
 
     end
 
