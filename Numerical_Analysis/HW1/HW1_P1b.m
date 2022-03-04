@@ -3,48 +3,61 @@
 clc,clear,close
 
 % initial guess
-x0 = [1 2];
+x0 = [1 2]';
+
+x = x0;
+n = 0;
+E = 1; % Error
+
+
+while E>1e-6 && n<20
 
 % System of functions
 f = fun(x);
 
-
 % Jacobian
-J = jac(x0)
+J = Jac(x);
 
+    x_old = x;
 
-% Solving the system of equations
-x = x - J\f(:)
+    % Solving the system of equations
+    x = x - (J\f(:));
 
-%%%%% Print %%%%%%%
+    E = norm(x - x_old); 
+    
+    n = n+1;
+        fprintf('n = %.0f --> (x,y) = (%.4f , %.4f)\n',n,x(1),x(2))
 
-
-function f = fun(x0) 
-% x = x(1), y = x(2)
-    f(1) = x(1)^2 + x(2)^2 -5;
-    f(2) = x(1) - 1 - x(2);
 end
 
 
-function J = Jac(x0)
+function f = fun(x) 
+% x = x(1), y = x(2)
+    f(1) = (x(1)^2 + x(2)^2) -5;
+    f(2) = (x(1)^2 - 1) - x(2);
 
-h = ones(3)*1E-10;
-
-for j = 1:3
-
-    for i = 1
+%     F = (x(1)^2 + x(2)^2) -5 + (x(1) - 1) - x(2);
+end
 
 
-        fc = fun(x0+h) - fun(x0);    % Function change
-        J(i,j) = fc(i)/h(1);       % Jacobian calculated
+function J = Jac(x)
+J = zeros(2);
+P = 1E-10;   % Pertubance
+
+for j = 1:2
+
+    h = zeros(2,1);
+    h(j) = P;
+
+    for i = 1:2
+
+
+        fc = fun(x+h) - fun(x);    % Function change
+        J(i,j) = fc(i)/P;         % Jacobian calculated
 
     end
 
 end
 
-
-
-
-
-
+end
 
