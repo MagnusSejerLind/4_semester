@@ -40,5 +40,4 @@ end
 clearvars curfilename curdatname
 
 % Save data
-save('data.mat')
-
+save('expdata.mat','data')
