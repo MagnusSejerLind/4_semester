@@ -1,45 +1,51 @@
-
 clc,clear,close all
 
 exp = importdata('Data\expdata.mat');
 % plot(exp(1).data(:,3),exp(1).data(:,1))
-%%
 
-% Correction of data
-% 10 % is machine displacement in data
-% delta_specimen = delta - delta_machine
+%% Correct data
+
+% for j = 1:105
+% testdata = exp(j);
+% 
+% % delta_s = zeros(length(testdata.data),1);
+% for i = 1:length(testdata.data)
+% % delta_s = delta_data - delta_m
+% 
+% delta_s(i) = testdata.data(i,3) - (testdata.data(i,1) / 11400);    
+% 
+% end
+% 
+% all(j).delta_s = delta_s'
+% end
 
 
-%% Test
-clc,close all
-testdata = exp(1);
+c_machine = 1/11400; %[mm/N]
 
-% Load / Elongation
-% plot(testdata.data(:,3),testdata.data(:,1))
+for i = 1:105
+   delta_machine = exp(i).data(:,1).*c_machine;
+   
 
-
-
-delta_s = zeros(length(testdata.data),1);
-for i = 1:length(testdata.data);
-% delta_s = delta_data - delta_m
-
-delta_s(i) = testdata.data(i,3) - (testdata.data(i,1) / 11400);    
-
+   exp(i).data(:,6) = exp(i).data(:,3) - delta_machine;
 end
 
 
-
-%%
-figure(1)
-plot(testdata.data(:,3),testdata.data(:,1))
-hold on
-plot(delta_s,testdata.data(:,1))
-grid
-legend('Experimential','Corrected')
+for k = 1:105
+    exp(k).data(:,3) = exp(k).data(:,6);
+    exp(k).data(:,6) = [];
+end
 
 
-%%
-testdata.data(:,1) = delta_s;
+%% Plot to check if correct
+% figure(1)
+% plot(exp.data(:,3),exp.data(:,1))
+% hold on
+% plot(delta_s,exp.data(:,1))
+% grid
+% legend('Experimential','Corrected')
 
 
-save('cordata.mat','testdata')
+%% Overwrite and save corrected data
+% testdata.data(:,1) = delta_s;
+
+save('cordata.mat','exp')
