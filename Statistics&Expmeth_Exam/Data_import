@@ -10,7 +10,7 @@ datatable = struct2table(datastruct);
 
 for i = 3:107
 
-curdatname = datatable(i,1); % Data name
+curdatname = datatable(i,1); % Current data name
 
 a(i-2) = table2cell(curdatname); % Convert to cell
 
@@ -38,6 +38,16 @@ a(i-2) = table2cell(curdatname); % Convert to cell
     
 end
 clearvars curfilename curdatname
+
+
+
+% for i = 1:105
+    
+% Data =   struct2table(data)
+
+% end
+
+
 
 % Save data
 save('expdata.mat','data')
